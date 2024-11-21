@@ -6,8 +6,11 @@ Authors: Scott Morrison
 import Lean.Data.Json
 import Lean.Message
 import Lean.Elab.InfoTree.Main
+import REPL.Future
+
 
 open Lean Elab InfoTree
+
 
 namespace REPL
 

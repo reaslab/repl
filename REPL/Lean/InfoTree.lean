@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Scott Morrison
 -/
 import Lean
-
+import REPL.Future
 /-!
 Additional functions to deal with `InfoTree`.
 -/
@@ -214,13 +214,13 @@ def sorries (t : InfoTree) : List (ContextInfo × SorryType × Position × Posit
 
 def tactics (t : InfoTree) : List (ContextInfo × Syntax × List MVarId × Position × Position × Array Name) :=
     -- HACK: creating a child ngen
-  t.findTacticNodes.map fun ⟨i, ctx⟩ => 
-    let range := stxRange ctx.fileMap i.stx 
-    ( { ctx with mctx := i.mctxBefore, ngen := ctx.ngen.mkChild.1 }, 
-      i.stx, 
-      i.goalsBefore, 
-      range.fst, 
-      range.snd, 
+  t.findTacticNodes.map fun ⟨i, ctx⟩ =>
+    let range := stxRange ctx.fileMap i.stx
+    ( { ctx with mctx := i.mctxBefore, ngen := ctx.ngen.mkChild.1 },
+      i.stx,
+      i.goalsBefore,
+      range.fst,
+      range.snd,
       i.getUsedConstantsAsSet.toArray )
 
 
